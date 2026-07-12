@@ -125,10 +125,10 @@ Cloud deployment
 User authentication and prediction history
 
 Team Members:
-Pinjari Arshiya - Team Lead
-Muthukuri Raghu - Team Member
-Saisriram Tiruveedhi - Team Member
-Shiva Shankar Vara Prasad Kuruva - Team Member
+Pinjari Arshiya - Team Lead,
+Muthukuri Raghu - Team Member,
+Saisriram Tiruveedhi - Team Member,
+Shiva Shankar Vara Prasad Kuruva - Team Member,
 Uday Kiran - Team Member
 
 Conclusion:
