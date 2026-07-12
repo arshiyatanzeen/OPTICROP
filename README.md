@@ -68,18 +68,37 @@ Machine Learning Algorithm
 Random Forest Classifier (best performing, compared against K-Nearest Neighbors, Logistic Regression, Decision Tree and K-Means Clustering)
 The model learns the relationship between soil nutrients, environmental indicators and crop type to recommend the most suitable crop for new user inputs.
 
-Installation:
-Clone the repository
-git clone https://github.com/yourusername/OptiCrop.git
+## Installation
 
-Install dependencies
+1. Clone the repository:
+
+```bash
+git clone https://github.com/arshiyatanzeen/OPTICROP.git
+```
+
+2. Navigate to the project folder:
+
+```bash
+cd OPTICROP
+```
+
+3. Install the required dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
-Run the application
+4. Run the Flask application:
+
+```bash
 python app.py
+```
 
-Open the browser
+5. Open your browser and visit:
+
+```
 http://127.0.0.1:5000/
+```
 
 Project Structure
 database/
