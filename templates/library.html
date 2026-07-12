@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Crop Library{% endblock %}
+{% block page_title %}Crop Library{% endblock %}
+
+{% block content %}
+<section class="glass card-body">
+  <div class="library-controls">
+    <div class="search">
+      <i data-lucide="search"></i>
+      <input id="cropSearch" type="search" placeholder="Search crops, categories, seasons…" />
+    </div>
+    <div class="chips" id="catChips"></div>
+  </div>
+</section>
+
+<section class="grid grid--crops" id="cropGrid">
+  {% for c in crops %}
+  <article class="crop-card glass" data-name="{{ c.name|lower }}" data-category="{{ c.category|lower }}">
+    <div class="crop-card__thumb" data-color="{{ c.color }}">
+      <span class="crop-card__emoji">{{ c.emoji }}</span>
+    </div>
+    <div class="crop-card__body">
+      <div class="crop-card__head">
+        <h4>{{ c.name }}</h4>
+        <span class="pill pill--muted">{{ c.category }}</span>
+      </div>
+      <p class="muted">{{ c.description }}</p>
+      <dl class="meta">
+        <div><dt>Season</dt><dd>{{ c.season }}</dd></div>
+        <div><dt>Temp</dt><dd>{{ c.ideal_temperature }}</dd></div>
+        <div><dt>pH</dt><dd>{{ c.ph_range }}</dd></div>
+        <div><dt>Water</dt><dd>{{ c.water }}</dd></div>
+      </dl>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/library.js') }}"></script>
+{% endblock %}

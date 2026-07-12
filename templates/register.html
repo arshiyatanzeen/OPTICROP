@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OptiCrop · Create Account</title>
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/crops/placeholder.svg') }}"
+      type="image/svg+xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/components.css') }}"
+    />
+    <script
+      src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"
+      defer
+    ></script>
+    <style>
+      .auth-shell {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 16px;
+      }
+
+      .auth-card {
+        width: 100%;
+        max-width: 460px;
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-2);
+        overflow: hidden;
+      }
+
+      .auth-header {
+        background: var(--grad-brand);
+        padding: 28px 32px 24px;
+        text-align: center;
+      }
+
+      .auth-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .auth-brand__dot {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.18);
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .auth-brand__dot::after {
+        content: "";
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #fff;
+      }
+
+      .auth-brand__name {
+        font-family: var(--font-display);
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .auth-header__title {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+      }
+
+      .auth-header__sub {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.65);
+        margin-top: 3px;
+      }
+
+      .auth-body {
+        padding: 24px 32px 32px;
+      }
+
+      .auth-alert {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: var(--radius-sm);
+        font-size: 0.88rem;
+        margin-bottom: 18px;
+      }
+      .auth-alert--error {
+        background: color-mix(in oklab, var(--danger) 12%, transparent);
+        border: 1px solid color-mix(in oklab, var(--danger) 35%, transparent);
+        color: var(--text);
+      }
+      .auth-alert--error i {
+        color: var(--danger);
+        flex-shrink: 0;
+      }
+      .auth-alert--success {
+        background: color-mix(in oklab, var(--ok) 12%, transparent);
+        border: 1px solid color-mix(in oklab, var(--ok) 35%, transparent);
+        color: var(--text);
+      }
+      .auth-alert--success i {
+        color: var(--ok);
+        flex-shrink: 0;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 14px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 0.83rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        margin-bottom: 5px;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+      }
+
+      .input-wrap {
+        position: relative;
+      }
+
+      .input-wrap i {
+        position: absolute;
+        left: 11px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        pointer-events: none;
+        width: 15px;
+        height: 15px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px 12px 10px 36px;
+        background: var(--surface-solid);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        font-family: var(--font-sans);
+        font-size: 0.92rem;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        box-sizing: border-box;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--brand-2);
+        box-shadow: 0 0 0 3px
+          color-mix(in oklab, var(--brand-2) 20%, transparent);
+      }
+
+      .form-control::placeholder {
+        color: var(--text-muted);
+        opacity: 0.55;
+      }
+
+      /* Role select — keep the left icon offset */
+      select.form-control {
+        appearance: none;
+        padding-right: 32px;
+      }
+
+      .select-wrap {
+        position: relative;
+      }
+      .select-wrap i.sel-icon {
+        position: absolute;
+        left: 11px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        pointer-events: none;
+        width: 15px;
+        height: 15px;
+      }
+      .select-wrap::after {
+        content: "";
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 5px solid transparent;
+        border-top: 6px solid var(--text-muted);
+        pointer-events: none;
+      }
+      .select-wrap select {
+        padding-left: 36px;
+      }
+
+      .btn-primary {
+        width: 100%;
+        padding: 12px 20px;
+        background: var(--grad-brand);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-family: var(--font-display);
+        font-size: 0.96rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
+        margin-top: 6px;
+      }
+      .btn-primary:hover {
+        opacity: 0.88;
+      }
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+
+      .auth-footer {
+        text-align: center;
+        margin-top: 18px;
+        font-size: 0.87rem;
+        color: var(--text-muted);
+      }
+      .auth-footer a {
+        color: var(--brand-2);
+        font-weight: 600;
+      }
+      .auth-footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Eye toggle button inside input */
+      .eye-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 2px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s;
+      }
+      .eye-btn:hover {
+        color: var(--brand-2);
+      }
+      .eye-btn i {
+        width: 15px;
+        height: 15px;
+        pointer-events: none;
+      }
+      .input-wrap .form-control.has-eye {
+        padding-right: 36px;
+      }
+
+      /* password hint */
+      .hint {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      .theme-float {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        background: var(--surface-solid);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--shadow-1);
+      }
+      .theme-float:hover {
+        background: var(--bg-elev);
+      }
+      .theme-float i {
+        width: 16px;
+        height: 16px;
+        color: var(--text-muted);
+      }
+      [data-theme="dark"] .ic-sun {
+        display: block;
+      }
+      [data-theme="dark"] .ic-moon {
+        display: none;
+      }
+      [data-theme="light"] .ic-sun {
+        display: none;
+      }
+      [data-theme="light"] .ic-moon {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="theme-float" id="themeBtn" aria-label="Toggle theme">
+      <i data-lucide="sun" class="ic-sun"></i>
+      <i data-lucide="moon" class="ic-moon"></i>
+    </button>
+
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-brand">
+            <div class="auth-brand__dot"></div>
+            <span class="auth-brand__name">{{ brand }}</span>
+          </div>
+          <p class="auth-header__title">Create your account</p>
+          <p class="auth-header__sub">
+            Join the precision agriculture intelligence platform
+          </p>
+        </div>
+
+        <div class="auth-body">
+          {% if error %}
+          <div class="auth-alert auth-alert--error">
+            <i data-lucide="alert-circle"></i>
+            <span>{{ error }}</span>
+          </div>
+          {% endif %} {% if success %}
+          <div class="auth-alert auth-alert--success">
+            <i data-lucide="check-circle"></i>
+            <span>{{ success }} <a href="/login">Sign in now →</a></span>
+          </div>
+          {% endif %}
+
+          <form method="POST" action="/register" novalidate>
+            <!-- Name -->
+            <div class="form-group">
+              <label for="name">Full name</label>
+              <div class="input-wrap">
+                <i data-lucide="user"></i>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="form-control"
+                  placeholder="Jane Doe"
+                  value="{{ form.get('name', '') }}"
+                  required
+                  autocomplete="name"
+                />
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <div class="input-wrap">
+                <i data-lucide="mail"></i>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="you@example.com"
+                  value="{{ form.get('email', '') }}"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+             <!-- Role -->
+             <div class="form-group">
+             <label for="role">I am a…</label>
+
+              {% set selected_role = form.get('role', '') %}
+
+             <div class="select-wrap">
+             <i class="sel-icon" data-lucide="briefcase"></i>
+
+             <select id="role" name="role" class="form-control">
+             <option value="" disabled {% if selected_role == '' %}selected{% endif %}>
+                  Select role...
+             </option>
+
+             <option value="farmer" {% if selected_role == 'farmer' %}selected{% endif %}>
+             🌾 Farmer
+             </option>
+
+                <option value="researcher" {% if selected_role == 'researcher' %}selected{% endif %}>
+               🔬 Researcher
+               </option>
+
+              <option value="agribusiness" {% if selected_role == 'agribusiness' %}selected{% endif %}>
+               🏢 Agribusiness
+               </option>
+
+              <option value="government" {% if selected_role == 'government' %}selected{% endif %}>
+                🏛️ Government Organisation
+               </option>
+                 </select>
+
+                   </div>
+                  </div>
+
+            <!-- Password row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrap">
+                  <i data-lucide="lock"></i>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control has-eye"
+                    placeholder="••••••••"
+                    required
+                    autocomplete="new-password"
+                    minlength="6"
+                  />
+                  <button type="button" class="eye-btn" data-target="password" aria-label="Show password">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+                <p class="hint">Minimum 6 characters</p>
+              </div>
+
+              <div class="form-group">
+                <label for="confirm_password">Confirm</label>
+                <div class="input-wrap">
+                  <i data-lucide="lock-keyhole"></i>
+                  <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    class="form-control has-eye"
+                    placeholder="••••••••"
+                    required
+                    autocomplete="new-password"
+                  />
+                  <button type="button" class="eye-btn" data-target="confirm_password" aria-label="Show password">
+                    <i data-lucide="eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary">Create account</button>
+          </form>
+
+          <div class="auth-footer">
+            Already have an account?
+            <a href="/login">Sign in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (window.lucide) lucide.createIcons();
+      });
+
+      // Password show/hide — eye icon: open = hidden text, closed (eye-off) = visible text.
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".eye-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const input = document.getElementById(btn.dataset.target);
+            if (!input) return;
+            const isHidden = input.type === "password";
+            input.type = isHidden ? "text" : "password";
+            btn.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
+            btn.innerHTML = `<i data-lucide="${isHidden ? "eye-off" : "eye"}"></i>`;
+            if (window.lucide) lucide.createIcons();
+          });
+        });
+      });
+
+      const themeBtn = document.getElementById("themeBtn");
+      const html = document.documentElement;
+      const saved = localStorage.getItem("opticrop_theme") || "dark";
+      html.setAttribute("data-theme", saved);
+
+      themeBtn.addEventListener("click", () => {
+        const next =
+          html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        localStorage.setItem("opticrop_theme", next);
+        if (window.lucide) lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>

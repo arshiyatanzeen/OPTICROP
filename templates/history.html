@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Prediction History{% endblock %}
+{% block page_title %}Prediction History{% endblock %}
+
+{% block content %}
+<section class="glass card-body">
+  <div class="library-controls">
+    <div class="search">
+      <i data-lucide="search"></i>
+      <input id="historySearch" type="search" placeholder="Search by crop…" />
+    </div>
+    <div class="row-actions">
+      <a class="btn btn--ghost" id="exportCsvBtn" href="/api/history.csv" download>
+        <i data-lucide="download"></i> Export CSV
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="glass card-body">
+  <table class="table" id="historyTable">
+    <thead>
+      <tr>
+        <th>#</th><th>Timestamp</th><th>Predicted</th><th>Confidence</th>
+        <th>N</th><th>P</th><th>K</th><th>T (°C)</th>
+        <th>H (%)</th><th>pH</th><th>Rain (mm)</th>
+      </tr>
+    </thead>
+     <tbody><tr><td colspan="11" class="muted">Loading…</td></tr></tbody>
+  </table>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %}

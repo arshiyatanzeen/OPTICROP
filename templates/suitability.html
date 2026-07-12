@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Suitability Assessment{% endblock %}
+{% block page_title %}Crop Suitability Assessment{% endblock %}
+
+{% block content %}
+<div class="grid grid--split">
+  <section class="glass card-body">
+    <h3 class="card-title"><i data-lucide="gauge"></i> Assess a chosen crop</h3>
+    <p class="muted">Select a crop and provide your field conditions to score suitability.</p>
+    <form id="suitForm" class="form-grid" novalidate>
+      <label class="field field--full">
+        <span class="field__label">Crop</span>
+        <select name="crop" required>
+          <option value="">Select a crop…</option>
+          {% for c in crops %}
+            <option value="{{ c.slug }}">{{ c.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      {% for key in ['N','P','K','temperature','humidity','ph','rainfall'] %}
+        {% set b = bounds[key] %}
+        <label class="field">
+          <span class="field__label">{{ labels[key] }}</span>
+          <div class="field__control">
+            <input type="number" step="any" name="{{ key }}" min="{{ b[0] }}" max="{{ b[1] }}" required />
+            <span class="field__unit">{{ units[key] or '' }}</span>
+          </div>
+          <span class="field__hint">Range {{ b[0] }} – {{ b[1] }}</span>
+        </label>
+      {% endfor %}
+      <div class="form-actions">
+        <button type="button" class="btn btn--ghost" id="sampleBtn">
+          <i data-lucide="wand-2"></i> Fill sample values
+        </button>
+        <button type="submit" class="btn btn--primary">
+          <i data-lucide="gauge"></i> Score suitability
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="glass card-body">
+    <h3 class="card-title"><i data-lucide="target"></i> Suitability report</h3>
+    <div id="suitEmpty" class="empty">
+      <i data-lucide="target"></i>
+      <p>Pick a crop and submit conditions to see per-parameter progress and improvement guidance.</p>
+    </div>
+    <div id="suitBody" hidden></div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/suitability.js') }}"></script>
+{% endblock %}

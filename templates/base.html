@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ brand }} · {% block title %}Precision Agriculture Intelligence{% endblock %}</title>
+  <meta name="description" content="OptiCrop — AI-powered crop recommendation, suitability analysis, and agronomy research dashboard." />
+  <link rel="icon" href="{{ url_for('static', filename='images/crops/placeholder.svg') }}" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+  <style>
+    /* User card at the bottom of the sidebar */
+    .user-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      margin-bottom: 10px;
+      min-width: 0;
+    }
+
+    .user-card__avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--grad-brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .user-card__info {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .user-card__name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text);
+    }
+
+    .user-card__role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: capitalize;
+    }
+
+    .user-card__logout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: background .15s, color .15s;
+    }
+
+    .user-card__logout:hover {
+      background: color-mix(in oklab, var(--danger) 14%, transparent);
+      color: var(--danger);
+    }
+
+    .user-card__logout i { width: 14px; height: 14px; }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+      <div class="sidebar__brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="brand-mark__dot"></span>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">{{ brand }}</div>
+          <div class="brand-sub">Intelligence Engine</div>
+        </div>
+      </div>
+      <nav class="sidebar__nav">
+        {% for item in nav %}
+        <a href="{{ item.path }}"
+           class="nav-item {% if item.slug == active %}is-active{% endif %}"
+           data-slug="{{ item.slug }}">
+          <i data-lucide="{{ item.icon }}"></i>
+          <span>{{ item.label }}</span>
+        </a>
+        {% endfor %}
+      </nav>
+      <div class="sidebar__foot">
+
+        <!-- Logged-in user card -->
+        {% if user %}
+        <div class="user-card">
+          <div class="user-card__avatar">{{ user.name[:2] }}</div>
+          <div class="user-card__info">
+            <div class="user-card__name">{{ user.name }}</div>
+            <div class="user-card__role">{{ user.role }}</div>
+          </div>
+          <a href="/logout" class="user-card__logout" title="Sign out">
+            <i data-lucide="log-out"></i>
+          </a>
+        </div>
+        {% endif %}
+
+        <div class="sys-status">
+          <span class="pulse"></span>
+          <div>
+            <div class="sys-status__title">Systems online</div>
+            <div class="sys-status__sub">All services operational</div>
+          </div>
+        </div>
+        <div class="brand-version">OptiCrop v1.0.0</div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar__title">
+          <div class="crumb">{{ brand }} · Precision Agriculture</div>
+          <h1 class="page-title">{% block page_title %}{% endblock %}</h1>
+        </div>
+        <div class="topbar__actions">
+          <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+            <i data-lucide="sun" class="ic-sun"></i>
+            <i data-lucide="moon" class="ic-moon"></i>
+          </button>
+          <a class="icon-btn" href="/recommend" title="New recommendation">
+            <i data-lucide="plus"></i>
+          </a>
+        </div>
+      </header>
+
+      <main class="content">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+
+  <div id="toastHost" class="toast-host" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

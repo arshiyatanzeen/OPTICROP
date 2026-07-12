@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block page_title %}Data-driven decisions for sustainable yields.{% endblock %}
+
+{% block content %}
+<section class="hero glass">
+  <div class="hero__copy">
+    <div class="chip"><span class="pulse"></span> Systems online and operational</div>
+    <h2>Precision agriculture, engineered.</h2>
+    <p>
+      OptiCrop analyzes soil chemistry, climate, and crop biology to deliver
+      authoritative recommendations for farmers, agronomists, and researchers.
+    </p>
+    <div class="hero__cta">
+      <a class="btn btn--primary" href="/recommend">
+        <i data-lucide="sparkles"></i> Start Recommendation
+      </a>
+      <a class="btn btn--ghost" href="/research">
+        <i data-lucide="bar-chart-3"></i> Explore Research Data
+      </a>
+    </div>
+  </div>
+  <div class="hero__stats">
+    <div class="stat-card">
+      <div class="stat-card__label">Crops in library</div>
+      <div class="stat-card__value">{{ crops_count }}</div>
+      <div class="stat-card__foot">Full agronomy profiles</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__label">Predictions run</div>
+      <div class="stat-card__value">{{ stats.total }}</div>
+      <div class="stat-card__foot">Across all sessions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__label">Model</div>
+      <div class="stat-card__value">ML</div>
+      <div class="stat-card__foot">Random Forest ensemble</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <h3>Mission-Critical Scenarios</h3>
+    <p>Select a tool based on your current operational needs.</p>
+  </div>
+  <div class="grid grid--3">
+    <a class="feature-card glass" href="/recommend">
+      <div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+      <h4>Smart Recommendation</h4>
+      <p>Input soil + environmental parameters to surface the optimal crop for your conditions.</p>
+      <span class="feature-card__cta">Run Analysis <i data-lucide="arrow-right"></i></span>
+    </a>
+    <a class="feature-card glass" href="/suitability">
+      <div class="feature-card__icon"><i data-lucide="gauge"></i></div>
+      <h4>Suitability Assessment</h4>
+      <p>Validate a chosen crop against your land's NPK, pH, and climate signature.</p>
+      <span class="feature-card__cta">Assess Crop <i data-lucide="arrow-right"></i></span>
+    </a>
+    <a class="feature-card glass" href="/research">
+      <div class="feature-card__icon"><i data-lucide="bar-chart-3"></i></div>
+      <h4>Research &amp; Policy</h4>
+      <p>Aggregate statistics across every crop profile — for planning and research.</p>
+      <span class="feature-card__cta">View Insights <i data-lucide="arrow-right"></i></span>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head">
+    <h3>Recent Predictions</h3>
+    <p>Live from your local prediction ledger.</p>
+  </div>
+  <div class="glass card-body">
+    <table class="table" id="recentTable">
+      <thead>
+        <tr>
+          <th>#</th><th>Timestamp</th><th>Predicted Crop</th>
+          <th>Confidence</th><th>N/P/K</th><th></th>
+        </tr>
+      </thead>
+      <tbody><tr><td colspan="6" class="muted">Loading…</td></tr></tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (async () => {
+    const r = await fetch('/api/history?limit=6');
+    const data = await r.json();
+    const tb = document.querySelector('#recentTable tbody');
+    if (!data.ok || !data.rows.length) {
+      tb.innerHTML = '<tr><td colspan="6" class="muted">No predictions yet. Run one from Smart Recommendation.</td></tr>';
+      return;
+    }
+    tb.innerHTML = data.rows.map(r => `
+      <tr>
+        <td>#${r.id}</td>
+        <td>${r.created_at}</td>
+        <td><span class="pill">${r.predicted_crop}</span></td>
+        <td>${r.confidence.toFixed(1)}%</td>
+        <td>${r.N}/${r.P}/${r.K}</td>
+        <td><a class="link" href="/history">View</a></td>
+      </tr>`).join('');
+  })();
+</script>
+{% endblock %}

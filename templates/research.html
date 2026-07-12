@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Research & Policy{% endblock %}
+{% block page_title %}Research Dashboard{% endblock %}
+
+{% block content %}
+{% if not metrics %}
+<div class="notice">
+  <i data-lucide="alert-triangle"></i>
+  <div>
+    <strong>Model not trained yet.</strong>
+    Run <code>python model_training.py</code> to generate metrics and EDA plots.
+  </div>
+</div>
+{% else %}
+<section class="grid grid--4">
+  <div class="stat-card glass">
+    <div class="stat-card__label">Best model</div>
+    <div class="stat-card__value">{{ metrics.best_model }}</div>
+    <div class="stat-card__foot">Selected by test accuracy</div>
+  </div>
+  <div class="stat-card glass">
+    <div class="stat-card__label">Accuracy</div>
+    <div class="stat-card__value">{{ (metrics.accuracy * 100)|round(2) }}%</div>
+    <div class="stat-card__foot">Held-out test set</div>
+  </div>
+  <div class="stat-card glass">
+    <div class="stat-card__label">Macro F1</div>
+    <div class="stat-card__value">{{ (metrics.macro_f1 * 100)|round(2) }}%</div>
+    <div class="stat-card__foot">Balanced across 22 crops</div>
+  </div>
+  <div class="stat-card glass">
+    <div class="stat-card__label">Samples</div>
+    <div class="stat-card__value">{{ metrics.n_samples }}</div>
+    <div class="stat-card__foot">{{ metrics.n_classes }} classes · {{ metrics.n_features }} features</div>
+  </div>
+</section>
+
+<section class="grid grid--split">
+  <div class="glass card-body">
+    <h3 class="card-title"><i data-lucide="bar-chart-3"></i> Feature importance</h3>
+    <canvas id="chartImportance" height="180"></canvas>
+  </div>
+  <div class="glass card-body">
+    <h3 class="card-title"><i data-lucide="pie-chart"></i> Model comparison</h3>
+    <canvas id="chartModels" height="180"></canvas>
+  </div>
+</section>
+
+<section class="grid grid--split">
+  <div class="glass card-body">
+    <h3 class="card-title"><i data-lucide="activity"></i> Correlation heatmap</h3>
+    <img class="figure" src="{{ url_for('static', filename='images/eda/correlation_heatmap.png') }}" alt="Correlation heatmap" />
+  </div>
+  <div class="glass card-body">
+    <h3 class="card-title"><i data-lucide="grid-3x3"></i> Confusion matrix</h3>
+    <img class="figure" src="{{ url_for('static', filename='images/eda/confusion_matrix.png') }}" alt="Confusion matrix" />
+  </div>
+</section>
+
+<section class="grid grid--split">
+  <div class="glass card-body">
+    <h3 class="card-title"><i data-lucide="bar-chart-2"></i> Feature distributions</h3>
+    <img class="figure" src="{{ url_for('static', filename='images/eda/histograms.png') }}" alt="Feature histograms" />
+  </div>
+  <div class="glass card-body">
+    <h3 class="card-title"><i data-lucide="layers"></i> Class balance</h3>
+    <img class="figure" src="{{ url_for('static', filename='images/eda/class_balance.png') }}" alt="Class balance" />
+  </div>
+</section>
+
+<section class="glass card-body">
+  <h3 class="card-title"><i data-lucide="scatter-chart"></i> Pairwise relationships</h3>
+  <img class="figure" src="{{ url_for('static', filename='images/eda/pairplot.png') }}" alt="Pairplot" />
+</section>
+
+<section class="grid grid--split">
+  <div class="glass card-body">
+    <h3 class="card-title"><i data-lucide="trending-up"></i> Prediction volume (14d)</h3>
+    <canvas id="chartVolume" height="180"></canvas>
+  </div>
+  <div class="glass card-body">
+    <h3 class="card-title"><i data-lucide="award"></i> Top predicted crops</h3>
+    <canvas id="chartTop" height="180"></canvas>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/research.js') }}"></script>
+{% endblock %}

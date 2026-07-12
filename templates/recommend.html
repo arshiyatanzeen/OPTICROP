@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Smart Recommendation{% endblock %}
+{% block page_title %}Smart Crop Recommendation{% endblock %}
+
+{% block content %}
+<div class="grid grid--split">
+  <section class="glass card-body">
+    <h3 class="card-title"><i data-lucide="sparkles"></i> Field parameters</h3>
+    <p class="muted">Enter your current soil chemistry and climate readings.</p>
+    <form id="recForm" class="form-grid" novalidate>
+      {% for key in ['N','P','K','temperature','humidity','ph','rainfall'] %}
+        {% set b = bounds[key] %}
+        <label class="field">
+          <span class="field__label">{{ labels[key] }}</span>
+          <div class="field__control">
+            <input type="number" step="any" name="{{ key }}" min="{{ b[0] }}" max="{{ b[1] }}" required />
+            <span class="field__unit">{{ units[key] or '' }}</span>
+          </div>
+          <span class="field__hint">Range {{ b[0] }} – {{ b[1] }}</span>
+        </label>
+      {% endfor %}
+      <div class="form-actions">
+        <button type="button" class="btn btn--ghost" id="sampleBtn">
+          <i data-lucide="wand-2"></i> Fill sample values
+        </button>
+        <button type="submit" class="btn btn--primary">
+          <i data-lucide="sparkles"></i> Recommend crop
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="glass card-body" id="resultCard">
+    <h3 class="card-title"><i data-lucide="leaf"></i> Recommendation</h3>
+    <div id="resultEmpty" class="empty">
+      <i data-lucide="seedling"></i>
+      <p>Submit the form to receive an AI-driven crop recommendation and a full agronomy brief.</p>
+    </div>
+    <div id="resultBody" hidden></div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/recommend.js') }}"></script>
+{% endblock %}
