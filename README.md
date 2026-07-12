@@ -1,10 +1,10 @@
-OptiCrop - Smart Agricultural Production Optimization Engine using Machine Learning
+**OptiCrop - Smart Agricultural Production Optimization Engine using Machine Learning**
 
-Project Overview
+**Project Overview**
 
 This project recommends the most suitable crop using Machine Learning techniques. The application analyzes important soil and environmental indicators such as Nitrogen (N), Phosphorous (P), Potassium (K) levels, temperature, humidity, soil pH, and rainfall to estimate the best-fit crop. A Flask-based web application provides a simple user interface where users can enter these indicators and obtain a predicted crop recommendation instantly.
 
-Objectives:
+**Objectives:**
 Recommend the most suitable crop based on soil and environmental parameters.
 Perform data preprocessing and visualization.
 Train and compare multiple Machine Learning models.
@@ -12,7 +12,7 @@ Evaluate model performance.
 Deploy the trained model using Flask.
 Provide a simple web interface for predictions.
 
-Features:
+**Features:**
 Dataset preprocessing
 Missing value handling
 Data visualization
@@ -21,9 +21,9 @@ Model evaluation using accuracy and classification metrics
 Model serialization using Pickle
 Flask web application
 User-friendly prediction interface
-Export prediction results (input values, predicted crop, and ID) as a CSV file
+Download prediction/recommednation results (input values, predicted crop, and ID) as a PDF Report
 
-Technology Stack:
+**Technology Stack:**
 Python
 Pandas
 NumPy
@@ -36,7 +36,7 @@ CSS
 Bootstrap
 Pickle
 
-Project Workflow:
+**Project Workflow:**
 Environment Setup
 Import Libraries
 Dataset Collection
@@ -53,7 +53,7 @@ Flask Deployment
 Dataset
 The dataset contains crop recommendation indicators collected for agricultural analysis.
 
-Main attributes include:
+**Main attributes include:**
 Nitrogen (N)
 Phosphorous (P)
 Potassium (K)
@@ -100,7 +100,7 @@ python app.py
 http://127.0.0.1:5000/
 ```
 
-Project Structure
+**Project Structure**
 database/
 dataset/
 model/
@@ -116,7 +116,7 @@ README.md
 requirements.txt
 utils.py
 
-Future Enhancements:
+**Future Enhancements:**
 Live Weather API integration
 Fertilizer recommendation system
 Improve prediction accuracy with advanced models
@@ -124,12 +124,12 @@ Interactive dashboards
 Cloud deployment
 User authentication and prediction history
 
-Team Members:
+**Team Members:**
 Pinjari Arshiya(Team Lead),
 Muthukuri Raghu,
 Saisriram Tiruveedhi,
 Shiva Shankar Vara Prasad Kuruva,
 Uday Kiran
 
-Conclusion:
+**Conclusion:**
 This project demonstrates the application of Machine Learning in agriculture to recommend the most suitable crop for a given set of soil and environmental conditions. By integrating data preprocessing, visualization, model development, and Flask deployment, it provides an end-to-end solution for crop recommendation. The system is scalable and can be extended with advanced machine learning algorithms and cloud deployment for real-world use.
