@@ -1,4 +1,4 @@
-# OptiCrop - Smart Agricultural Production Optimization Engine using Machine Learning
+# OptiCrop - Smart Agricultural Production Optimization Engine 
 
 ## Project Overview
 
