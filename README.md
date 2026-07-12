@@ -125,11 +125,11 @@ Cloud deployment
 User authentication and prediction history
 
 Team Members:
-Pinjari Arshiya - Team Lead,
-Muthukuri Raghu - Team Member,
-Saisriram Tiruveedhi - Team Member,
-Shiva Shankar Vara Prasad Kuruva - Team Member,
-Uday Kiran - Team Member
+Pinjari Arshiya(Team Lead),
+Muthukuri Raghu,
+Saisriram Tiruveedhi,
+Shiva Shankar Vara Prasad Kuruva,
+Uday Kiran
 
 Conclusion:
 This project demonstrates the application of Machine Learning in agriculture to recommend the most suitable crop for a given set of soil and environmental conditions. By integrating data preprocessing, visualization, model development, and Flask deployment, it provides an end-to-end solution for crop recommendation. The system is scalable and can be extended with advanced machine learning algorithms and cloud deployment for real-world use.
