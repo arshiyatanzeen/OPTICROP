@@ -1,20 +1,3 @@
-"""
-Train the crop recommendation model + generate EDA artifacts.
-
-Run once from the project root:
-
-    python model_training.py
-
-It will:
-
-1. Download the dataset if `dataset/Crop_recommendation.csv` is missing.
-2. Perform data cleaning + EDA (missing values, correlation, histograms,
-   pairplot, class balance) and save the plots under `static/images/eda/`.
-3. Compare 5 classifiers and keep the best by test accuracy.
-4. Persist `model/crop_model.joblib`, `scaler.joblib`, `label_encoder.joblib`
-   and a `metrics.json` summary.
-"""
-
 from __future__ import annotations
 
 import json
