@@ -213,6 +213,17 @@ https://github.com/arshiyatanzeen/OPTICROP
 
 ---
 
+---
+
+## Demo Video
+
+The complete project demonstration video is available at the following link:
+
+**Google Drive Link:**  
+https://drive.google.com/file/d/1321yWKa7tcXt-t00doLR9McvSLhPJ7R2/view?usp=drivesdk
+
+---
+
 ## Conclusion
 
 OptiCrop demonstrates the practical application of Machine Learning in precision agriculture by recommending the most suitable crop based on soil nutrients and environmental conditions. By integrating data preprocessing, visualization, model development, and Flask deployment into a single web application, the project provides an end-to-end intelligent crop recommendation system that can be further enhanced with advanced AI techniques and cloud-based deployment.
